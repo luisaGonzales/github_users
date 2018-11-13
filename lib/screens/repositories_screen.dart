@@ -18,8 +18,10 @@ class _RepositoriesScreenState extends State<RepositoriesScreen> {
   _getRepositories(login) async {
     var data = await getData(getRepositories,
         variables: <String, dynamic>{"login": login});
+    print("data");
+    print(data);
     final itemsTmp =
-    data['repositories']['edges'].map((i) => new Repository.map(i['node']));
+    data['user']['repositories']['edges'].map((i) => new Repository.map(i['node']));
     final items = itemsTmp.cast<Repository>().toList();
     setState(() {
       _repositories = items;
@@ -39,6 +41,35 @@ class _RepositoriesScreenState extends State<RepositoriesScreen> {
       appBar: AppBar(
         title: Text(widget.name),
         centerTitle: true,
+      ),
+      body: _repositories != null ?
+      new ListView.builder(
+          itemCount: _repositories.length,
+          itemBuilder: (context, index) {
+            final repositories = _repositories[index];
+            return new Container(
+              decoration: new BoxDecoration(
+                  border: new Border (
+                      bottom: new BorderSide(
+                          color: Colors.grey
+                      )
+                  )
+              ),
+              child: ListTile(
+                title: Text(
+                  repositories.name,
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                subtitle: Text(
+                  repositories.description != null ? repositories.description : 'No description' ,
+                ),
+                trailing: Text(
+                  "PR. Count: ${repositories.pullRequests}", style: TextStyle(fontSize: 12.8),
+                ),
+              ),
+            );
+          }) : new Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
