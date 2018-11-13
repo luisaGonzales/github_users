@@ -12,11 +12,9 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final key = new GlobalKey<ScaffoldState>();
-  final TextEditingController _searchQuery = new TextEditingController();
+  final myController = TextEditingController();
+
   List<User> _users;
-  var _data;
-  String _searchText = "";
-  bool _isSearching;
 
   _get(searchUser) async {
     var data = await getData(searchUsers,
@@ -24,53 +22,30 @@ class _SearchScreenState extends State<SearchScreen> {
     final itemsTmp =
         data['search']['edges'].map((i) => new User.map(i['node']));
     final items = itemsTmp.cast<User>().toList();
-    print(items[0]);
     setState(() {
-      _users = itemsTmp;
-    });
-  }
-
-  _SearchScreenState() {
-    _searchQuery.addListener(() {
-      if (_searchQuery.text.isEmpty) {
-        setState(() {
-          _isSearching = false;
-          _searchText = "";
-        });
-      } else {
-        setState(() {
-          _isSearching = true;
-          _searchText = _searchQuery.text;
-        });
-        _get(_searchText);
-      }
+      _users = items;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    _isSearching = false;
+    myController.addListener(_getUsers);
   }
 
-  void _handleSearchStart() {
-    setState(() {
-      _isSearching = true;
-      _searchText = "";
-    });
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    myController.dispose();
+    super.dispose();
   }
 
-  void _handleSearchEnd() {
-    setState(() {
-      _isSearching = false;
-      _searchQuery.clear();
-    });
+  _getUsers() {
+    _get(myController.text);
   }
 
   List<UserTitle> _buildList() {
-    return _users
-        .map((user) => new UserTitle(user))
-        .toList();
+    return _users.map((user) => new UserTitle(user)).toList();
   }
 
   @override
@@ -89,33 +64,25 @@ class _SearchScreenState extends State<SearchScreen> {
               height: 50.0,
               decoration: new BoxDecoration(
                   color: Colors.black12,
-                  border: new Border.all(
-                      color: Colors.white70,
-                      width: 1.0
-                  ),
-                  borderRadius: new BorderRadius.circular(12.0)
-              ),
+                  border: new Border.all(color: Colors.white70, width: 1.0),
+                  borderRadius: new BorderRadius.circular(12.0)),
               child: TextField(
                 autofocus: true,
-                controller: _searchQuery,
-                  decoration: new InputDecoration(
-                      contentPadding: const EdgeInsets.all(8.0),
-                      border: InputBorder.none,
-                      prefixIcon: new Icon(Icons.search),
-                      hintText: "Search Github Users",
-                      labelStyle: new TextStyle(color: Colors.white)),
-                onEditingComplete: () {
-                  _handleSearchEnd();
-                },
-
+                controller: myController,
+                decoration: new InputDecoration(
+                    contentPadding: const EdgeInsets.all(8.0),
+                    border: InputBorder.none,
+                    prefixIcon: new Icon(Icons.search),
+                    hintText: "Search Github Users",
+                    labelStyle: new TextStyle(color: Colors.white)),
               ),
             ),
             Expanded(
-              child: _users != null ?
-              new ListView(children: _buildList())
+              child: _users != null
+                  ? new ListView(children: _buildList())
                   : new Center(
-                child: CircularProgressIndicator(),
-              ),
+                      child: CircularProgressIndicator(),
+                    ),
             )
           ],
         ));
