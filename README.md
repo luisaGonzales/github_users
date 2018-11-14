@@ -1,7 +1,8 @@
 # GraphQL Code Challenge
 
 ----
-##Description
+## Description
+
 ### Summary
 GraphQL Code Challenge is an app for Android, that allows you to search github users and view their repositories.
 
@@ -36,4 +37,9 @@ About the design, it could be a lot of screens displaying information; so the li
 
 ## Design
 The [Material Components widgets](https://flutter.io/docs/reference/widgets/material) has been used for this propose.
- 
+
+Search users
+![Design1](https://github.com/luisaGonzales/github_users/blob/master/assets/design1.jpeg?raw=true)
+
+Repositories
+![Design2](https://github.com/luisaGonzales/github_users/blob/master/assets/design2.jpeg?raw=true)
