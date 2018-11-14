@@ -8,20 +8,24 @@ class UserTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    print(_user);
     return new Container(
       decoration: new BoxDecoration(
-          border: new Border(bottom: new BorderSide(color: Colors.grey))),
+          border: new Border(bottom: new BorderSide(color: themeData.dividerColor))),
       child: new ListTile(
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(_user.avatarUrl),
+            radius: 25.0,
+            backgroundImage: _user.avatarUrl != null ? NetworkImage(_user.avatarUrl) : NetworkImage('https://cdn3.iconfinder.com/data/icons/ultimate-social/150/48_github-512.png'),
+
           ),
           title: Text(
             "${_user.name}, ${_user.location != null ? _user.location : 'Not defined'} ",
-            style: TextStyle(fontSize: 20.0),
+            maxLines: 1,
+            style: TextStyle(
+                fontSize: 18.0,
+            ),
           ),
           subtitle: Text(
-            _user.login,
+            "${_user.login}",
             style: TextStyle(fontSize: 16.0),
           ),
           onTap: () {
