@@ -23,7 +23,7 @@ class Repository {
     var map = new Map<String, dynamic>();
     map["name"] = _name;
     map["description"] = _description;
-    map["pullRequests"] = _nPullRequests;
+    map["nPullRequests"] = _nPullRequests;
     return map;
   }
 }
