@@ -18,8 +18,6 @@ class _RepositoriesScreenState extends State<RepositoriesScreen> {
   _getRepositories(login) async {
     var data = await getData(getRepositories,
         variables: <String, dynamic>{"login": login});
-    print("data");
-    print(data);
     final itemsTmp =
     data['user']['repositories']['edges'].map((i) => new Repository.map(i['node']));
     final items = itemsTmp.cast<Repository>().toList();
@@ -37,6 +35,7 @@ class _RepositoriesScreenState extends State<RepositoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.name),
@@ -51,17 +50,19 @@ class _RepositoriesScreenState extends State<RepositoriesScreen> {
               decoration: new BoxDecoration(
                   border: new Border (
                       bottom: new BorderSide(
-                          color: Colors.grey
+                          color: themeData.dividerColor
                       )
                   )
               ),
               child: ListTile(
+                dense: true,
                 title: Text(
                   repositories.name,
-                  style: TextStyle(fontSize: 20.0),
+                  style: TextStyle(fontSize: 18.0),
                 ),
                 subtitle: Text(
-                  repositories.description != null ? repositories.description : 'No description' ,
+                  repositories.description != null ? repositories.description : 'No description',
+                  maxLines: 1,
                 ),
                 trailing: Text(
                   "PR. Count: ${repositories.pullRequests}", style: TextStyle(fontSize: 12.8),
