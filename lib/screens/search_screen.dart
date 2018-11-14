@@ -50,6 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
           title: Text('Github Users'),
@@ -58,12 +59,12 @@ class _SearchScreenState extends State<SearchScreen> {
         body: new Column(
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.all(8.0),
+              margin: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
               padding: const EdgeInsets.all(5.0),
               alignment: Alignment.center,
               height: 50.0,
               decoration: new BoxDecoration(
-                  color: Colors.black12,
+                  color: themeData.dividerColor,
                   border: new Border.all(color: Colors.white70, width: 1.0),
                   borderRadius: new BorderRadius.circular(12.0)),
               child: TextField(

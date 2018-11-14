@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Github Users',
           theme: ThemeData(
-            primarySwatch: Colors.blueGrey,
+            primarySwatch: Colors.grey,
           ),
           routes: routes,
         ));
