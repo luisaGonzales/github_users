@@ -39,7 +39,11 @@ About the design, it could be a lot of screens displaying information; so the li
 The [Material Components widgets](https://flutter.io/docs/reference/widgets/material) has been used for this propose.
 
 Search users
+
+
 ![Design1](https://github.com/luisaGonzales/github_users/blob/master/assets/design1.jpeg?raw=true)
 
 Repositories
+
+
 ![Design2](https://github.com/luisaGonzales/github_users/blob/master/assets/design2.jpeg?raw=true)
