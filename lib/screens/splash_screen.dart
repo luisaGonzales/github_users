@@ -17,11 +17,13 @@ class _SplashScreenState extends State<SplashScreen> {
   
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
     return Scaffold(
+      backgroundColor: themeData.primaryColor,
       body: new Center(
         child: new Image(
-          image: new AssetImage('assets/github-icon.png'),
-          height: 140.0,
+          image: new AssetImage('assets/logo.png'),
+          height: 130.0,
         ),
       ),
     );
